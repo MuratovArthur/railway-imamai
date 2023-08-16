@@ -20,7 +20,10 @@ class PostRepository:
         return self.database[collection_name].insert_one(payload).inserted_id
 
     def get_posts_from_db(self, limit: int, offset: int, language) -> dict:
-        collection_name = "posts_{}".format(language)
+        if language == "ru":
+            collection_name = "posts"
+        else:
+            collection_name = "posts_en"
 
         # Get a cursor pointing to your documents
         cursor = (
