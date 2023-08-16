@@ -20,7 +20,7 @@ class PostRepository:
         return self.database[collection_name].insert_one(payload).inserted_id
 
     def get_posts_from_db(self, limit: int, offset: int, language) -> dict:
-        if language == "ru":
+        if language == "ru" or language == "kz":
             collection_name = "posts"
         else:
             collection_name = "posts_en"
