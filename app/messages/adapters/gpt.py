@@ -96,7 +96,7 @@ def hadith_search(text_for_search):
 def get_ayah(surah, ayah, language):
     language_names = {
         "ru": "Russian",
-        "kz": "Kazakh",
+        "kk": "Kazakh",
         "en": "English",
         "ar": "Arabic",
     }
@@ -106,14 +106,14 @@ def get_ayah(surah, ayah, language):
 
     file_mapping = {
         "ru": "app/messages/adapters/Коран. Перевод Эльмира Кулиева.txt",
-        "kz": "app/messages/adapters/Құран. Аударма Халифа Алтай.txt",
+        "kk": "app/messages/adapters/Құран. Аударма Халифа Алтай.txt",
         "en": "app/messages/adapters/Clear Quran. Translation by Dr. Mustafa Khattab.txt",
         "ar": "app/messages/adapters/Quran.txt",
     }
 
     author = {
         "ru": "Эльмир Кулиева",
-        "kz": "Халифа Алтай",
+        "kk": "Халифа Алтай",
         "en": "Dr. Mustafa Khattab",
         "ar": "No translation was made",
     }
@@ -293,7 +293,7 @@ functions = [
                 },
                 "language": {
                     "type": "string",
-                    "description": "Detect the query language and choose from: [en, ar, ru, kz]. Use en for default value.",
+                    "description": "Detect the query language and choose from: [en, ar, ru, kk]. Use en for default value.",
                 },
             },
             "required": ["surah", "ayah", "language"],
@@ -311,7 +311,7 @@ functions = [
                 },
                 "language": {
                     "type": "string",
-                    "description": "Detect the query language and choose from: [en, ar, ru, kz]. Use en for default value.",
+                    "description": "Detect the query language and choose from: [en, ar, ru, kk]. Use en for default value.",
                 },
             },
             "required": ["surah", "language"],
@@ -389,11 +389,8 @@ class OpenAIService:
 
             if function_name == "get_ayah":
                 language = function_args.get("language")
-                if language not in ["ru", "kz", "ar", "en"]:
-                    if language == "kk":
-                        language = "kz"
-                    else:
-                        language = "en"
+                if language not in ["ru", "kk", "ar", "en"]:
+                    language = "en"
 
                 function_response = fuction_to_call(
                     ayah=function_args.get("ayah"),
@@ -409,11 +406,8 @@ class OpenAIService:
 
             if function_name == "get_surah":
                 language = function_args.get("language")
-                if language not in ["ru", "kz", "ar", "en"]:
-                    if language == "kk":
-                        language = "kz"
-                    else:
-                        language = "en"
+                if language not in ["ru", "kk", "ar", "en"]:
+                    language = "en"
 
                 function_response = fuction_to_call(
                     surah=function_args.get("surah"),

@@ -58,7 +58,7 @@ class MessageRepository:
                 }
             )
 
-        elif language == "kz":
+        elif language == "kk":
             conv_id["history"].append(
                 {
                     "role": "assistant",
