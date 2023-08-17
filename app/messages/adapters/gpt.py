@@ -64,9 +64,9 @@ def search_quran(text_for_search):
         docs = quran_searcher.similarity_search(text_for_search)
         print(docs[0])
         return (
-            "Answer the question in the same language as in provided documents. Be sure to use only this information for your response. Do not add anything from your own knowledge besides the explanation of this: "
+            "Answer the question in the same language as in provided documents. Be sure to use only this information for your response. Be sure to use citation to mention the specific translation of quran (read data from metadata). Do not add anything from your own knowledge besides the explanation of this: "
             + str(docs[0])
-            + " Be sure to use citation to mention the specific translation of quran. If I do not provide you additional context, say that you do not know."
+            + "  If I do not provide you additional context, say that you do not know."
         )
     else:
         return "Say that you do not know the answer."
@@ -85,9 +85,9 @@ def hadith_search(text_for_search):
         docs = hadith_searcher.similarity_search(text_for_search)
         print(docs[0])
         return (
-            "Answer the question in the same language as in provided documents. Be sure to use only this information for your response: "
+            "Answer the question in the same language as in provided documents. Be sure to use citation of used hadith in your answer (read data from metadata). Be sure to use only this information for your response: "
             + str(docs[0])
-            + " Be sure to use citation of used hadith in your answer. If I do not provide you additional context, say that you do not know."
+            + "If I do not provide you additional context, say that you do not know."
         )
     else:
         return "Say that you do not know the answer."
