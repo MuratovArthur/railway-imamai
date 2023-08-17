@@ -66,18 +66,16 @@ class MessageRepository:
                 }
             )
 
-        conv_id = self.database["conv_ios_railway"].insert_one(conv_id).inserted_id
+        conv_id = self.database["conv_ios"].insert_one(conv_id).inserted_id
         return conv_id
 
     def get_messages(self, chat_id):
-        conversation = self.database["conv_ios_railway"].find_one(
-            {"_id": ObjectId(chat_id)}
-        )
+        conversation = self.database["conv_ios"].find_one({"_id": ObjectId(chat_id)})
         return conversation["history"]
 
     def update_messages(self, chat_id, messages):
         return (
-            self.database["conv_ios_railway"]
+            self.database["conv_ios"]
             .update_one(
                 filter={"_id": ObjectId(chat_id)},
                 update={
@@ -89,9 +87,7 @@ class MessageRepository:
 
     def get_30_last_messages(self, chat_id):
         print("I am here")
-        conversation = self.database["conv_ios_railway"].find_one(
-            {"_id": ObjectId(chat_id)}
-        )
+        conversation = self.database["conv_ios"].find_one({"_id": ObjectId(chat_id)})
         history = conversation["history"]
 
         # Filter out messages with 'function_call' or where 'role' is 'function'
