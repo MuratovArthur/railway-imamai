@@ -1,12 +1,58 @@
 import importlib
 import pkgutil
 from datetime import datetime
-from typing import Any, Callable, Optional
+from typing import Any, Callable, Optional, Tuple
 from zoneinfo import ZoneInfo
 
 import orjson
 from bson.objectid import ObjectId
 from pydantic import BaseModel, root_validator
+
+import requests
+import os
+
+# Constants (replace with actual IAM token and folder ID)
+IAM_TOKEN = os.getenv("IAM_TOKEN")
+FOLDER_ID = os.getenv("FOLDER_ID")
+
+
+def translate_text(text: str, target_language: str) -> Tuple[str, str]:
+    """
+    Translate the given text to the target language using Yandex Cloud Translation.
+
+    :param text: Text to be translated.
+    :param target_language: Language code to translate the text into.
+    :return: A tuple containing the translated text and the detected source language.
+    """
+    body = {
+        "targetLanguageCode": target_language,
+        "texts": [text],
+        "folderId": FOLDER_ID,
+    }
+
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {IAM_TOKEN}"
+    }
+
+    response = requests.post('https://translate.api.cloud.yandex.net/translate/v2/translate',
+                             json=body, headers=headers)
+    response.raise_for_status()
+    response_data = response.json()
+
+    translated_text = response_data['translations'][0]['text']
+    detected_language = response_data['translations'][0]['detectedLanguageCode']
+
+    return translated_text, detected_language
+
+
+# Example of calling the function
+try:
+    translated, detected_lang = translate_text("Hello Arthur!", "ru")
+    print(f"Translated Text: {translated}")
+    print(f"Detected Language: {detected_lang}")
+except requests.RequestException as e:
+    print(f"An error occurred: {str(e)}")
 
 
 def orjson_dumps(v: Any, *, default: Optional[Callable[[Any], Any]]) -> str:
