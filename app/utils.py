@@ -9,10 +9,11 @@ from bson.objectid import ObjectId
 from pydantic import BaseModel, root_validator
 
 import requests
+import os
 
 # Constants (replace with actual IAM token and folder ID)
-IAM_TOKEN = 't1.9euelZqVzc2QjZPOjMzJjMjNkovKzu3rnpWayJ2VjpbOnJSXjp3OncfKz53l9PcvfTZS-e9WYGL33fT3bys0UvnvVmBi983n9euelZrNjsiaic_JlJedmJ2djsuUxu_8xeuelZrNjsiaic_JlJedmJ2djsuUxg.mIAhSOI1QR-bCsX3DwcxaJ6a8q0aMbrLd7FwnvR-LMxrNQMsFDsRjQcRvYpDfyH5kFkjK7-3xCOKqOCZ7ZdZAg'
-FOLDER_ID = 'b1gog32re13jie3oakvi'
+IAM_TOKEN = os.getenv("IAM_TOKEN")
+FOLDER_ID = os.getenv("FOLDER_ID")
 
 
 def translate_text(text: str, target_language: str) -> Tuple[str, str]:
@@ -46,12 +47,12 @@ def translate_text(text: str, target_language: str) -> Tuple[str, str]:
 
 
 # Example of calling the function
-# try:
-#     translated, detected_lang = translate_text("Hello Arthur!", "ru")
-#     print(f"Translated Text: {translated}")
-#     print(f"Detected Language: {detected_lang}")
-# except requests.RequestException as e:
-#     print(f"An error occurred: {str(e)}")
+try:
+    translated, detected_lang = translate_text("Hello Arthur!", "ru")
+    print(f"Translated Text: {translated}")
+    print(f"Detected Language: {detected_lang}")
+except requests.RequestException as e:
+    print(f"An error occurred: {str(e)}")
 
 
 def orjson_dumps(v: Any, *, default: Optional[Callable[[Any], Any]]) -> str:
