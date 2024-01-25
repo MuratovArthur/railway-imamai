@@ -46,12 +46,12 @@ def translate_text(text: str, target_language: str) -> Tuple[str, str]:
 
 
 # Example of calling the function
-try:
-    translated, detected_lang = translate_text("Hello Arthur!", "ru")
-    print(f"Translated Text: {translated}")
-    print(f"Detected Language: {detected_lang}")
-except requests.RequestException as e:
-    print(f"An error occurred: {str(e)}")
+# try:
+#     translated, detected_lang = translate_text("Hello Arthur!", "ru")
+#     print(f"Translated Text: {translated}")
+#     print(f"Detected Language: {detected_lang}")
+# except requests.RequestException as e:
+#     print(f"An error occurred: {str(e)}")
 
 
 def orjson_dumps(v: Any, *, default: Optional[Callable[[Any], Any]]) -> str:
